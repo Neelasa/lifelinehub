@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Emergency - LifeLine Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-purple-700 text-white p-4 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="https://tse4.mm.bing.net/th/id/OIP.H5jf3nYT0B6nv_8o3aJCVAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" class="w-10 h-10 rounded-full" alt="Logo">
+      <h1 class="text-xl font-bold">LifeLine Hub</h1>
+    </div>
+    <nav class="space-x-4 hidden md:block">
+      <a href="index.html">Home</a>
+      <a href="guide.html">Guide</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="emergency.html" class="underline font-bold">Emergency</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Main Emergency Section -->
+  <main class="max-w-xl mx-auto p-8 text-center">
+    <h2 class="text-3xl font-bold text-red-600 mb-4">Emergency Assistance</h2>
+    <p class="mb-6">Use the buttons below to notify emergency contacts or find nearby hospitals.</p>
+
+    <form id="emergencyForm" class="space-y-4">
+      <input type="text" id="name" placeholder="Your Name" required class="w-full p-3 border rounded">
+      <input type="tel" id="contact" placeholder="Emergency Contact Number" required class="w-full p-3 border rounded">
+      <input type="text" id="location" placeholder="Location will be auto-filled..." readonly class="w-full p-3 border rounded bg-gray-100">
+      <button type="button" onclick="getLocation()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">📍 Get Location</button>
+      <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">🚨 Send Emergency Alert</button>
+    </form>
+
+    <div id="alertConfirmation" class="mt-4 text-green-600 font-semibold hidden">
+      ✅ Alert sent successfully!
+    </div>
+
+    <button onclick="openHospitalMap()" class="mt-8 bg-pink-600 text-white px-6 py-2 rounded hover:bg-pink-700">
+      🏥 Find Nearby Hospitals
+    </button>
+
+    <!-- Navigation buttons -->
+    <div class="flex justify-between mt-10">
+      <a href="quiz.html" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">⬅️ Previous</a>
+      <a href="contact.html" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Next ➡️</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-purple-700 text-white text-center py-4 mt-10">
+    &copy; 2025 LifeLine Hub. All rights reserved.
+  </footer>
+
+  <!-- Inline JS -->
+  <script>
+    document.getElementById("emergencyForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      document.getElementById("alertConfirmation").classList.remove("hidden");
+
+      setTimeout(() => {
+        document.getElementById("alertConfirmation").classList.add("hidden");
+        document.getElementById("emergencyForm").reset();
+        document.getElementById("location").value = "";
+      }, 3000);
+    });
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else {
+        document.getElementById("location").value = "Geolocation not supported.";
+      }
+    }
+
+    function showPosition(position) {
+      const lat = position.coords.latitude.toFixed(5);
+      const lon = position.coords.longitude.toFixed(5);
+      document.getElementById("location").value = `Lat: ${lat}, Lon: ${lon}`;
+    }
+
+    function showError(error) {
+      document.getElementById("location").value = "Unable to retrieve location.";
+    }
+
+    function openHospitalMap() {
+      window.open("https://www.google.com/maps/search/hospitals+near+me", "_blank");
+    }
+  </script>
+
+</body>
+</html>

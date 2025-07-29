@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Health Quiz - LifeLine Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-purple-700 text-white p-4 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="https://tse4.mm.bing.net/th/id/OIP.H5jf3nYT0B6nv_8o3aJCVAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" class="w-10 h-10 rounded-full" alt="Logo">
+      <h1 class="text-xl font-bold">LifeLine Hub</h1>
+    </div>
+    <nav class="space-x-4 hidden md:block">
+      <a href="index.html">Home</a>
+      <a href="guide.html">Guide</a>
+      <a href="quiz.html" class="underline font-bold">Quiz</a>
+      <a href="emergency.html">Emergency</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Quiz Section -->
+  <main class="max-w-3xl mx-auto p-6">
+    <h2 class="text-2xl font-bold text-center mb-6 text-blue-700">Health & First Aid Quiz</h2>
+
+    <form id="quizForm" class="space-y-8"></form>
+
+    <button id="submitQuiz" class="mt-6 bg-green-600 text-white px-5 py-2 rounded hover:bg-green-700">
+      Submit Quiz
+    </button>
+
+    <div id="quizResult" class="mt-4 font-bold text-center text-green-700 hidden"></div>
+
+    <!-- Navigation buttons -->
+    <div class="flex justify-between mt-10">
+      <a href="guide.html" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">⬅️ Previous</a>
+      <a href="emergency.html" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Next ➡️</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-purple-700 text-white text-center py-4 mt-10">
+    &copy; 2025 LifeLine Hub. All rights reserved.
+  </footer>
+
+  <!-- Inline JS -->
+  <script>
+    const questions = [
+      {
+        q: "What is the first step in CPR?",
+        options: ["Call emergency services", "Check for pulse", "Give rescue breaths", "Start chest compressions"],
+        correct: 0
+      },
+      {
+        q: "What should you do for a bleeding wound?",
+        options: ["Apply heat", "Keep it open", "Apply pressure", "Use ice"],
+        correct: 2
+      },
+      {
+        q: "Which number is the emergency ambulance service in India?",
+        options: ["108", "100", "112", "101"],
+        correct: 0
+      },
+      {
+        q: "What is the best position for someone in shock?",
+        options: ["Standing", "Lying down with legs elevated", "Sitting", "Side-lying"],
+        correct: 1
+      },
+      {
+        q: "What should you do when someone is choking?",
+        options: ["Give them water", "Do back blows and abdominal thrusts", "Make them lie down", "Give CPR"],
+        correct: 1
+      },
+      {
+        q: "What do you use to cool a burn?",
+        options: ["Warm water", "Toothpaste", "Cold running water", "Ice directly"],
+        correct: 2
+      },
+      {
+        q: "Fractures should be:",
+        options: ["Left alone", "Moved back in place", "Immobilized", "Pressed tightly"],
+        correct: 2
+      },
+      {
+        q: "Which of these is a sign of heatstroke?",
+        options: ["Sweating heavily", "Cool skin", "Confusion and no sweating", "Low temperature"],
+        correct: 2
+      }
+    ];
+
+    const form = document.getElementById("quizForm");
+    const result = document.getElementById("quizResult");
+
+    // Render questions
+    questions.forEach((q, index) => {
+      const div = document.createElement("div");
+      div.classList.add("border", "p-4", "rounded", "bg-white", "shadow");
+
+      let optionsHtml = "";
+      q.options.forEach((opt, i) => {
+        optionsHtml += `
+          <label class="block mt-2">
+            <input type="radio" name="q${index}" value="${i}" class="mr-2">
+            ${opt}
+          </label>
+        `;
+      });
+
+      div.innerHTML = `<p class="font-semibold mb-2">${index + 1}. ${q.q}</p>${optionsHtml}`;
+      form.appendChild(div);
+    });
+
+    document.getElementById("submitQuiz").addEventListener("click", () => {
+      let score = 0;
+      const userAnswers = [];
+
+      questions.forEach((q, index) => {
+        const radios = document.getElementsByName(`q${index}`);
+        let answered = false;
+
+        radios.forEach((r, i) => {
+          if (r.checked) {
+            answered = true;
+            userAnswers[index] = parseInt(r.value);
+            if (parseInt(r.value) === q.correct) {
+              score++;
+              r.parentElement.classList.add("bg-green-200");
+            } else {
+              r.parentElement.classList.add("bg-red-200");
+              radios[q.correct].parentElement.classList.add("bg-green-200");
+            }
+          }
+        });
+
+        if (!answered) {
+          radios[q.correct].parentElement.classList.add("bg-green-200");
+        }
+      });
+
+      result.innerText = `You scored ${score} out of ${questions.length}`;
+      result.classList.remove("hidden");
+    });
+  </script>
+
+</body>
+</html>

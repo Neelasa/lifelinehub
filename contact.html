@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact - LifeLine Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-purple-700 text-white p-4 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="https://tse4.mm.bing.net/th/id/OIP.H5jf3nYT0B6nv_8o3aJCVAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" class="w-10 h-10 rounded-full" alt="Logo">
+      <h1 class="text-xl font-bold">LifeLine Hub</h1>
+    </div>
+    <nav class="space-x-4 hidden md:block">
+      <a href="index.html">Home</a>
+      <a href="guide.html">Guide</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="emergency.html">Emergency</a>
+      <a href="contact.html" class="underline font-bold">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Main Section -->
+  <main class="max-w-xl mx-auto p-8 text-center">
+    <h2 class="text-3xl font-bold text-blue-600 mb-6">Contact Us</h2>
+    <p class="mb-4 text-gray-700">We’re here to help. Reach out to us with any questions, feedback, or emergency info.</p>
+
+    <form id="contactForm" class="space-y-4">
+      <input type="text" id="name" placeholder="Your Name" required class="w-full p-3 border rounded">
+      <input type="email" id="email" placeholder="Your Email" required class="w-full p-3 border rounded">
+      <textarea id="message" placeholder="Your Message" rows="4" required class="w-full p-3 border rounded"></textarea>
+      <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Send Message</button>
+    </form>
+
+    <div id="formConfirmation" class="mt-4 text-green-600 font-semibold hidden">
+      ✅ Message sent successfully!
+    </div>
+
+    <!-- Navigation buttons -->
+    <div class="flex justify-start mt-10">
+      <a href="emergency.html" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">⬅️ Previous</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-purple-700 text-white text-center py-4 mt-10">
+    &copy; 2025 LifeLine Hub. All rights reserved.
+  </footer>
+
+  <!-- Inline JS -->
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      document.getElementById("formConfirmation").classList.remove("hidden");
+
+      setTimeout(() => {
+        document.getElementById("formConfirmation").classList.add("hidden");
+        document.getElementById("contactForm").reset();
+      }, 3000);
+    });
+  </script>
+
+</body>
+</html>
